@@ -1,5 +1,6 @@
 import Header from "@/_components/admin/Header";
 import Sidebar from "@/_components/admin/Sidebar";
+import Myparticle from "@/_components/global/MyPartical";
 
 export const metadata = {
     title: "Admin",
@@ -9,9 +10,10 @@ export const metadata = {
 export default function AdminLayout({ children }) {
     return (
         <>
-            <Header/>
-            <Sidebar/>
+            <Header />
+            <Sidebar />
             {children}
+
         </>
     );
 }
