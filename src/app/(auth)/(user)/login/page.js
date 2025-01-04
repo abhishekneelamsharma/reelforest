@@ -1,6 +1,15 @@
+"use client"
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const page = () => {
+
+    const router = useRouter();
+    const handleLogin = (e) => {
+        e.preventDefault();
+        router.push("/language")
+    }
+
     return (
         <>
 
@@ -9,7 +18,7 @@ const page = () => {
                     <div className="auth_brand">
                         <a className="navbar-brand" href="javascript:void(0);"><img
                             src="https://puffintheme.com/template/oculux/assets/images/icon.svg" width="30" height="30"
-                            className="d-inline-block align-top mr-2"  />Reel Forest</a>
+                            className="d-inline-block align-top mr-2" />Reel Forest</a>
                     </div>
                     <div className="card">
                         <div className="body">
@@ -32,7 +41,8 @@ const page = () => {
                                         <span>Remember me</span>
                                     </label>
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-round btn-block" >LOGIN</button>
+                                <button type="submit" className="btn btn-primary btn-round btn-block"
+                                    onClick={handleLogin}>LOGIN</button>
                                 <div className="bottom">
                                     <span className="helper-text m-b-10"><i className="fa fa-lock"></i> <a
                                         href="page-forgot-password.html">Forgot password?</a></span>
@@ -42,7 +52,7 @@ const page = () => {
                         </div>
                     </div>
                 </div>
-           
+
             </div>
         </>
     )

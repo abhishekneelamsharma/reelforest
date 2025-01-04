@@ -1,7 +1,14 @@
+"use client"
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 
 const Language = () => {
+    const router = useRouter();
+    const handleContinue = (e) => {
+        e.preventDefault();
+        router.push("/admin")
+    }
     return (
         <>
             <div className='d-flex align-items-center justify-content-center' style={{ height: "100vh" }}>
@@ -62,8 +69,8 @@ const Language = () => {
                         </label>
                     </div>
                     <div>
-                        <button className='btn btn-info btn-round px-5 py-3 w-100 my-3'><p className='mb-0' style={{fontSize:"18px",fontWeight:"400"}} 
-                        // onClick={()=>navigate("/")}
+                        <button className='btn btn-info btn-round px-5 py-3 w-100 my-3'><p className='mb-0' style={{ fontSize: "18px", fontWeight: "400" }}
+                            onClick={handleContinue}
                         >Continue</p></button>
                     </div>
                 </div>
