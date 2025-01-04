@@ -4,7 +4,7 @@ import React from 'react'
 
 const Sidebar = ({toggle,setToggle}) => {
     const handleToggle = () => {
-        setToggle(!toggle)
+        setToggle(false)
     }
     return (
         <div id="left-sidebar" className="sidebar">
@@ -44,13 +44,13 @@ const Sidebar = ({toggle,setToggle}) => {
                                 <li><a href="index11.html">eCommerce Analytics</a></li>
                             </ul>
                         </li> */}
-                        <li><Link href="/admin"><i className="icon-speedometer"></i><span>Dashboard</span></Link></li>
-                        <li><Link href="/admin/new-order"><i className="icon-bag"></i><span>New Order</span></Link></li>
-                        <li><Link href="/admin/order"><i
+                        <li><Link href="/admin" onClick={handleToggle}><i className="icon-speedometer" ></i><span>Dashboard</span></Link></li>
+                        <li><Link href="/admin/new-order" onClick={handleToggle}><i className="icon-bag" ></i><span>New Order</span></Link></li>
+                        <li><Link href="/admin/order" onClick={handleToggle}><i
                             className="icon-bag"></i><span>Order</span></Link></li>
-                        <li><Link href="/admin/all-funds"><i
+                        <li><Link href="/admin/add -funds" onClick={handleToggle}><i
                             className="icon-credit-card"></i><span>Add Funds</span></Link></li>
-                        <li><Link href="/admin/wallet"><i
+                        <li><Link href="/admin/wallet" onClick={handleToggle}><i
                             className="icon-wallet"></i><span>Wallet</span></Link></li>
                         <li>
                             <Link href="/" className='d-flex justify-content-center my-4'>

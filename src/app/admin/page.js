@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Chart as ChartJS, ArcElement, Legend,Tooltip as ToolTipChart } from "chart.js";
+import { Chart as ChartJS, ArcElement, Legend, Tooltip as ToolTipChart } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Line, Bar, } from 'recharts';
 
@@ -12,10 +12,10 @@ const BarChart = dynamic(() => import('recharts').then((mod) => mod.BarChart), {
 
 
 export const data1 = {
-    labels: ['Total order', 'Process order','Completed order'],
+    labels: ['Total order', 'Process order', 'Completed order'],
     datasets: [
         {
-            data: [9231, 10850,6850],
+            data: [9231, 10850, 6850],
             backgroundColor: [
                 'rgba(54, 162, 235)',
                 'rgba(153, 102, 255)',
@@ -135,7 +135,7 @@ const data3 = [
 
 
 const page = () => {
-    ChartJS.register(ArcElement, Legend,ToolTipChart);
+    ChartJS.register(ArcElement, Legend, ToolTipChart);
 
 
     return (
@@ -144,7 +144,7 @@ const page = () => {
                 <div className="block-header">
                     <div className="row clearfix">
                         <div className="col-md-6 col-sm-12">
-                            <h1 style={{color:"#17a2b8"}}>Dashboard</h1>
+                            <h1 style={{ color: "#17a2b8" }}>Dashboard</h1>
                             {/* <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb">
                                     <li className="breadcrumb-item"><a href="#">Oculux</a></li>
@@ -247,27 +247,31 @@ const page = () => {
                                     <div className="col-lg-4 col-md-12 col-sm-12">
                                         {/* <small>Audience It is a long established fact that a reader will be
                                             distracted</small> */}
-                                        <div className="d-flex justify-content-start mt-3">
-                                            <div className="mr-5" style={{marginTop:"-10px"}}>
+                                        <div className="d-flex justify-content-center mt-4">
+                                            <div className="mr-5" style={{ marginTop: "-10px" }}>
                                                 <label className="mb-0">Total </label>
                                                 <h4>9231</h4>
                                             </div>
-                                            <div className="mr-5" style={{marginTop:"-10px"}}>
+                                            <div className="mr-5" style={{ marginTop: "-10px" }}>
                                                 <label className="mb-0">Complete </label>
                                                 <h4>3850</h4>
                                             </div>
-                                            <div style={{marginTop:"-10px"}}>
+                                            <div style={{ marginTop: "-10px" }}>
                                                 <label className="mb-0">Process</label>
                                                 <h4>2850</h4>
                                             </div>
                                         </div>
-                                        <div id="chart-donut d-flex justify-content-center" style={{ height: "250px" }}>
+                                        <div id="chart-donut d-flex justify-content-center" style={{
+                                            height: "250px",
+                                            display: "flex",
+                                            justifyContent:"center"
+                                        }}>
                                             <Doughnut data={data1} options={options1} />
                                         </div>
                                     </div>
                                     <div className="col-lg-8 col-md-12 col-sm-12">
                                         <div id="flotChart" className="flot-chart">
-                                        <ResponsiveContainer>
+                                            <ResponsiveContainer>
                                                 <AreaChart data={data2}
                                                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                                     <defs>

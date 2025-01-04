@@ -3,7 +3,7 @@ import React from 'react'
 const Header = ({ toggle, setToggle }) => {
 
     const handleToggle = () => {
-        setToggle(!toggle)
+        setToggle(true)
     }
     return (
         <>
@@ -20,12 +20,19 @@ const Header = ({ toggle, setToggle }) => {
                     <div className="navbar-right">
                         <div id="navbar-menu">
                             <ul className="nav navbar-nav">
-                                <li><a href="javascript:void(0);" className="search_toggle icon-menu" title="Search Result"><i
-                                    className="icon-magnifier"></i></a></li>
-                                <li><a href="javascript:void(0);" className="right_toggle icon-menu" title="Right Menu"><i
-                                    className="icon-bubbles"></i><span className="notification-dot bg-pink">2</span></a>
+                                <li>
+                                    <a href="javascript:void(0);" className="icon-menu" title="Search Result">
+                                        <div className='d-flex align-items-center'>
+                                            
+                                            <span className='pr-3'>$ 0.00</span>
+                                            <i className="icon-wallet"></i>
+                                        </div>
+                                    </a>
                                 </li>
-                                <li><a href="page-login.html" className="icon-menu"><i className="icon-power"></i></a></li>
+                                {/* <li><a href="javascript:void(0);" className="right_toggle icon-menu" title="Right Menu"><i
+                                    className="icon-bubbles"></i><span className="notification-dot bg-pink">2</span></a>
+                                </li> */}
+                                {/* <li><a href="page-login.html" className="icon-menu"><i className="icon-power"></i></a></li> */}
                             </ul>
                         </div>
                     </div>
