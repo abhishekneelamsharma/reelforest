@@ -2716,7 +2716,7 @@ html.fullscreen-bg #wrapper {
 .top-navbar .navbar-btn {
     display: none;
     float: left;
-    border-right: 1px solid #fff
+    border-right: 1px solid (255, 255, 255, 0.4)
 }
 
 .top-navbar .navbar-btn button {
@@ -2726,7 +2726,9 @@ html.fullscreen-bg #wrapper {
     border: none;
     background: none;
     outline: none;
-    vertical-align: middle
+    vertical-align: middle;
+    color: #a5a8ad;
+    border-color:rgba(255, 255, 255, 0.4) ;
 }
 
 .top-navbar .navbar-btn .logo {
@@ -13292,6 +13294,9 @@ input[type="checkbox"]:checked {
     z-index: -1;
 }
 
-input:focus{
-    border-color: red;
-}
+
+
+
+
+
+

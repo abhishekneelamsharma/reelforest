@@ -2,14 +2,17 @@ import Link from 'next/link'
 import React from 'react'
 
 
-const Sidebar = () => {
+const Sidebar = ({toggle,setToggle}) => {
+    const handleToggle = () => {
+        setToggle(!toggle)
+    }
     return (
         <div id="left-sidebar" className="sidebar">
             <div className="navbar-brand">
-                <a href="index-2.html"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
+                <a href="#"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
                     alt="Oculux Logo" className="img-fluid logo" /><span>Reel Forest</span></a>
-                <button type="button" className="btn-toggle-offcanvas btn btn-sm float-right"><i
-                    className="lnr lnr-menu icon-close"></i></button>
+                <button type="button" className="btn-toggle-offcanvas btn btn-sm float-right" onClick={handleToggle}><i
+                    className="lnr lnr-menu icon-close" ></i></button>
             </div>
             <div className="sidebar-scroll">
                 <div className="user-account">
