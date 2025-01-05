@@ -247,7 +247,7 @@ const page = () => {
                                     <div className="col-lg-4 col-md-12 col-sm-12">
                                         {/* <small>Audience It is a long established fact that a reader will be
                                             distracted</small> */}
-                                        <div className="d-flex justify-content-center mt-4">
+                                        <div className="d-flex justify-content-sm-start justify-content-md-center mt-4">
                                             <div className="mr-5" style={{ marginTop: "-10px" }}>
                                                 <label className="mb-0">Total </label>
                                                 <h4>9231</h4>
