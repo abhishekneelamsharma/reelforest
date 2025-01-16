@@ -1,3 +1,5 @@
+"use client"
+
 import Link from 'next/link'
 import React from 'react'
 
@@ -8,6 +10,7 @@ const Sidebar = (
     // const handleToggle = () => {
     //     setToggle(false)
     // }
+
     return (
         <div id="left-sidebar" className="sidebar">
             <div className="navbar-brand">
@@ -59,7 +62,7 @@ const Sidebar = (
                             className="icon-wallet"></i><span>Wallet</span></Link></li>
                         <li>
                             <Link href="/" className='d-flex justify-content-center my-4'>
-                                <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="fa-solid fa-right-from-bracket " style={{marginRight:0}}></i></span>
+                                <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="fa-solid fa-right-from-bracket " style={{marginRight:0}} ></i></span>
                             </Link>
                         </li>
 

@@ -22,7 +22,7 @@ const Myparticle = () => {
         });
     }, []);
     const particlesLoaded = (container) => {
-        console.log(container);
+        // console.log(container);
     };
     return (
         init &&
@@ -38,10 +38,6 @@ const Myparticle = () => {
                 fpsLimit: 120,
                 interactivity: {
                     events: {
-                        onClick: {
-                            enable: true,
-                            mode: "push",
-                        },
                         onHover: {
                             enable: true,
                             mode: "repulse",
@@ -84,7 +80,7 @@ const Myparticle = () => {
                             enable: true,
                             area: 800,
                         },
-                        value: 100,
+                        value: 120,
                     },
                     opacity: {
                         value: 0.5,

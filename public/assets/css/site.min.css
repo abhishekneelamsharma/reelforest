@@ -2728,7 +2728,7 @@ html.fullscreen-bg #wrapper {
     outline: none;
     vertical-align: middle;
     color: #a5a8ad;
-    border-color:rgba(255, 255, 255, 0.4) ;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .top-navbar .navbar-btn .logo {
@@ -3591,7 +3591,6 @@ ul.choose-skin li.active div::after {
     border-color: #393d42;
     font-size: 14px;
     color: #a5a8ad
-    
 }
 
 .form-control.round {
@@ -3606,7 +3605,8 @@ ul.choose-skin li.active div::after {
     box-shadow: none;
     background: transparent;
     outline: none;
-    border-color: #57595d
+    border-color: #57595d;
+    color: #a5a8ad !important;
 }
 
 .form-control.parsley-error:focus {
@@ -3687,19 +3687,20 @@ ul.choose-skin li.active div::after {
     *display: inline;
     position: relative;
     bottom: 1px;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
     margin-right: 10px;
     content: "";
     border: 1px solid rgba(255, 255, 255, 0.2)
 }
 
 .fancy-checkbox input[type="checkbox"]:checked+span:before {
-    font-size: 17px;
+    font-size: 18px;
     font-family: "FontAwesome";
     content: '\f0c8';
-    color: #fff;
-    line-height: 17px
+    color: #007bff;
+    line-height: 14px;
 }
 
 .fancy-checkbox.custom-color-green input[type="checkbox"]:checked+span:before {
@@ -4025,7 +4026,7 @@ select.form-control:not([size]):not([multiple]) {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100vh
+    min-height: 100vh
 }
 
 .auth-main .auth_div {
@@ -5080,7 +5081,8 @@ select.form-control:not([size]):not([multiple]) {
 
 .custom-file-label:after {
     background-color: #2f3338;
-    border-color: #2f3338
+    border-color: #2f3338;
+    border-radius: 30px;
 }
 
 .noUi-target {
@@ -13294,9 +13296,66 @@ input[type="checkbox"]:checked {
     z-index: -1;
 }
 
+.datatable-top {
+    display: flex;
+    justify-content: space-between;
+}
 
+.datatable-top .datatable-search input {
+    background-color: #282b2f;
+    border: 1px solid #282b2f;
+    padding: 7px 15px;
+    border-radius: 3px;
+}
 
+.datatable-top .datatable-search input:focus,
+.datatable-top select:focus {
+    outline: none;
+    color: #a5a8ad;
+}
 
+.datatable-top select {
+    background: #282b2f;
+    padding: 7px 4px;
+    border-radius: 4px;
+    border: 1px solid #282b2f;
+    color: #a5a8ad;
+}
 
+#myTable th button {
+    background: none;
+    border: none;
+    font-weight: 700;
+    color: #a5a8ad;
+}
 
+.datatable-pagination-list {
+    display: flex;
+    gap: 10px;
+}
 
+.datatable-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.datatable-pagination-list-item::marker {
+    display: none !important;
+    color: #212529;
+}
+
+.datatable-pagination-list-item button {
+    border: 1px solid #a5a8ad;
+    background-color: #212529;
+    padding: "3px";
+    border-radius: "5px";
+    color: #a5a8ad;
+}
+
+.datatable-pagination-list-item button:focus {
+    outline: none;
+}
+
+.cretor-card{
+    width: 700px;
+}

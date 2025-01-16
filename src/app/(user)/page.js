@@ -6,6 +6,7 @@ import { Doughnut } from "react-chartjs-2";
 import { Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Line, Bar, } from 'recharts';
 
 import dynamic from 'next/dynamic';
+import { useSession } from 'next-auth/react';
 const AreaChart = dynamic(() => import('recharts').then((mod) => mod.AreaChart), { ssr: false });
 const LineChart = dynamic(() => import('recharts').then((mod) => mod.LineChart), { ssr: false });
 const BarChart = dynamic(() => import('recharts').then((mod) => mod.BarChart), { ssr: false });
@@ -136,8 +137,9 @@ const data3 = [
 
 const page = () => {
     ChartJS.register(ArcElement, Legend, ToolTipChart);
-
-
+    
+    const session = useSession();
+    console.log(session);
     return (
         <div id="main-content">
             <div className="container-fluid">

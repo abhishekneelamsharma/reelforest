@@ -1,4 +1,2 @@
-import NextAuth from "next-auth"
-import { authOptions } from "./options"
-
-export default NextAuth(authOptions)
+import { handlers } from "@/auth" 
+export const { GET, POST } = handlers

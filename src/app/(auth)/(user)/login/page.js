@@ -1,14 +1,58 @@
 "use client"
+import axios from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { signIn, useSession } from 'next-auth/react'
 
 const page = () => {
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm()
     const router = useRouter();
-    const handleLogin = (e) => {
-        e.preventDefault();
-        router.push("/language")
+
+    const [showPass, setShowPass] = useState(false);
+    const session = useSession();
+  
+
+    const onSubmit = async (data) => {
+        try {
+            const res = await axios.post("/api/user/login", data);
+            if (res.data.status == 1) {
+                toast.success(res.data.message, {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                })
+
+                await signIn("user-credentials", { email: data.email, role: res.data.role, redirect: false });
+                router.push("/language");
+            } else {
+                toast.error(res.data.message, {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                })
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
+
+    const handleShowPass = () => {
+        setShowPass(!showPass);
+    }
+
+   
 
     return (
         <>
@@ -21,32 +65,49 @@ const page = () => {
                             className="d-inline-block align-top mr-2" />Reel Forest</a>
                     </div>
                     <div className="card">
-                        <div className="body">
+                        <div className="body py-5 px-4">
                             <p className="lead">Login to your account</p>
                             <form className="form-auth-small m-t-20"
-                            >
+                                onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-group">
                                     <label htmlFor="signin-email" className="control-label sr-only">Email</label>
-                                    <input type="email" className="form-control round" id="signin-email" defaultValue="user@domain.com"
-                                        placeholder="Email" />
+                                    <input type="email" className="form-control round" id="signin-email"
+                                        placeholder="Email" {...register("email", {
+                                            required: {
+                                                value: true,
+                                                message: "Email is required"
+                                            },
+                                            pattern: {
+                                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                                message: "Invalid email"
+                                            }
+                                        })} style={errors.email ? { borderColor: "red" } : {}} />
+                                    {errors.email && <p style={{ color: "red", textAlign: "start", fontSize: "12px", marginLeft: "2px" }}>{errors.email.message}</p>}
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="signin-password" className="control-label sr-only">Password</label>
-                                    <input type="password" className="form-control round" id="signin-password"
-                                        defaultValue="thisisthepassword" placeholder="Password" />
+                                    <input type={showPass ? `text` : `password`} className="form-control round" id="signin-password"
+                                        placeholder="Password"
+                                        {...register("password", {
+                                            required: {
+                                                value: true,
+                                                message: "Password is required"
+                                            }
+                                        })} style={errors.password ? { borderColor: "red" } : {}} />
+                                    {errors.password && <p style={{ color: "red", textAlign: "start", fontSize: "12px", marginLeft: "2px" }}>{errors.password.message}</p>}
                                 </div>
                                 <div className="form-group clearfix">
                                     <label className="fancy-checkbox element-left">
-                                        <input type="checkbox" />
-                                        <span>Remember me</span>
+                                        <input type="checkbox" onClick={handleShowPass} />
+                                        <span>Show Password</span>
                                     </label>
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-round btn-block"
-                                    onClick={handleLogin}>LOGIN</button>
+                                <button type="submit" className="btn btn-primary btn-round mt-3 px-5"
+                                    disabled={isSubmitting}  >{isSubmitting ? "LOADING..." : "LOGIN"}</button>
                                 <div className="bottom">
-                                    <span className="helper-text m-b-10"><i className="fa fa-lock"></i> <a
-                                        href="page-forgot-password.html">Forgot password?</a></span>
-                                    <span>Don't have an account? <a href="page-register.html">Register</a></span>
+                                    {/* <span className="helper-text m-b-10"><i className="fa fa-lock"></i> <a
+                                        href="page-forgot-password.html">Forgot password?</a></span> */}
+                                    <span>Don't have an account? <Link href="/register">Register</Link></span>
                                 </div>
                             </form>
                         </div>

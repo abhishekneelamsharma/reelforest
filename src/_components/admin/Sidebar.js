@@ -17,7 +17,7 @@ const Sidebar = ({toggle,setToggle}) => {
             <div className="sidebar-scroll">
                 <div className="user-account">
                     <div className="user_div">
-                        <img src="../assets/images/user.png" className="user-photo" alt="User Profile Picture" />
+                        <img src="/assets/images/user.png" className="user-photo" alt="User Profile Picture" />
                     </div>
                     <div className="dropdown">
                         <span>Welcome,</span>
@@ -45,7 +45,12 @@ const Sidebar = ({toggle,setToggle}) => {
                             </ul>
                         </li> */}
                         <li><Link href="/admin" onClick={handleToggle}><i className="icon-speedometer" ></i><span>Dashboard</span></Link></li>
-                        <li><Link href="/admin/new-order" onClick={handleToggle}><i className="icon-bag" ></i><span>New Order</span></Link></li>
+                        <li><Link href="/admin/category" onClick={handleToggle}><i className="icon-diamond" ></i><span>Category</span></Link></li>
+                        <li><Link href="/admin/creators" onClick={handleToggle}><i className="icon-users" ></i><span>Creators</span></Link></li>
+                        <li><Link href="/admin/creator-request" onClick={handleToggle}><i className="icon-bell" ></i><span>Creator request</span></Link></li>
+                        <li><Link href="/admin/users" onClick={handleToggle}><i className="icon-users" ></i><span>Users</span></Link></li>
+                        
+                        {/* <li><Link href="/admin/new-order" onClick={handleToggle}><i className="icon-bag" ></i><span>New Order</span></Link></li> */}
                         <li><Link href="/admin/order" onClick={handleToggle}><i
                             className="icon-bag"></i><span>Order</span></Link></li>
                         <li><Link href="/admin/add -funds" onClick={handleToggle}><i
