@@ -4,6 +4,9 @@ import { getToken } from "next-auth/jwt"
 export async function middleware(request) {
 
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
+    
+    console.log(token);
+
     const pathname = request.nextUrl.pathname;
 
     const excludedPaths = [

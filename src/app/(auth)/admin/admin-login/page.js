@@ -4,10 +4,13 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 
 const page = () => {
 
+    const session = useSession();
+    console.log(session)
+    
     const {
         register,
         handleSubmit,
