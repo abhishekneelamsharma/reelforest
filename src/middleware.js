@@ -6,10 +6,9 @@ export async function middleware(request) {
     const token = await getToken({
         req: request,
         secret: process.env.NEXTAUTH_SECRET,
-        cookieName: "__Secure-authjs.session-token"
+        // cookieName: "__Secure-authjs.session-token"
     })
-
-    console.log("Hello" + token);
+z
 
     const pathname = request.nextUrl.pathname;
 
@@ -44,14 +43,11 @@ export async function middleware(request) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    console.log(token.language);
-    console.log("Hello");
-    console.log(!token.language);
+
     if (token.role == "User" && pathname.startsWith("/new-order") && !token.language) {
         return NextResponse.redirect(new URL('/language', request.url))
     }
-
-
+    
 }
 
 export const config = {
