@@ -1,7 +1,9 @@
 import categoryModel from "@/_model/CategoryModel";
+import connectDB from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
+    connectDB();
     try {
         const { id } = await request.json();
         const data = await categoryModel.findOne({ _id: id });

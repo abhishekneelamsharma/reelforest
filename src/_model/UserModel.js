@@ -13,9 +13,13 @@ const userSchma = new mongoose.Schema({
         type: String,
         default: null
     },
+    walletAmount: {
+        type: Number,
+        default: 0
+    },
     role: {
-        type:String,
-        default:"User"
+        type: String,
+        default: "User"
     }
 })
 

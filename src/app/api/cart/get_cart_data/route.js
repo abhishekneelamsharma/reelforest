@@ -1,8 +1,10 @@
 import cartModel from "@/_model/CartModel";
 import categoryModel from "@/_model/CategoryModel";
+import connectDB from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
+    connectDB()
     try {
         const { user_id } = await request.json();
 

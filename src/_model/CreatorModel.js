@@ -57,6 +57,14 @@ const creatorSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    creator_charges: {
+        type: Number,
+        default: 0
+    },
+    wallet_amount: {
+        type: Number,
+        default: 0
+    },
     role: {
         type: String,
         default: "Creator"

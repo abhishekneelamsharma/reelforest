@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useForm } from "react-hook-form"
+import Loader from '@/_components/global/Loader';
 
 const EditCategory = () => {
     const [data, setData] = useState();
@@ -63,6 +64,18 @@ const EditCategory = () => {
     }, [data])
 
 
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 700)
+    }, [])
+
+    if (loading) {
+        return <Loader />
+    }
+
+
     return (
         <>
             <div id="main-content">
@@ -70,7 +83,7 @@ const EditCategory = () => {
                     <div className="block-header">
                         <div className="row clearfix">
                             <div className="col-md-6 col-sm-12">
-                                <h1 style={{ color: "#17a2b8" }} className='ml-3'>Edit category / Premium creator </h1>
+                                <h1 style={{ color: "#17a2b8" }} className='ml-3'>Edit category </h1>
                             </div>
                         </div>
                     </div>

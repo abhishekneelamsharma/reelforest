@@ -1,7 +1,9 @@
 import cartModel from "@/_model/CartModel";
+import connectDB from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
+    connectDB()
     try {
         const { user_id, item } = await request.json();
 
@@ -20,7 +22,8 @@ export const POST = async (request) => {
                     {
                         $set: {
                             "item.$[elem].amount": item.amount,
-                            "item.$[elem].number_of_creators": item.number_of_creators
+                            "item.$[elem].number_of_creators": item.number_of_creators,
+                            "item.$[elem].Creators": item.Creators
                         }
                     },
                     {
@@ -36,7 +39,7 @@ export const POST = async (request) => {
                 }
             }
 
-            return NextResponse.json({ message: "Cart updated successfully", status: 1 });
+            return NextResponse.json({ message: "Added to cart.", status: 1 });
         }
 
         // If cart does not exist for the user 

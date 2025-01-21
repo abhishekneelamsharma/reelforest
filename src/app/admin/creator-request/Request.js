@@ -1,5 +1,6 @@
 "use client"
 
+import Loader from '@/_components/global/Loader';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
@@ -13,6 +14,7 @@ const Request = () => {
     const [creatorId, setCreatorId] = useState();
     const [toggleVerify, setToggleVerify] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [creatorCharges, setCreatorCharges] = useState("");
 
     useEffect(() => {
         getData();
@@ -51,9 +53,21 @@ const Request = () => {
                 })
                 return;
             }
+            if (!creatorCharges) {
+                toast.error("Please set the creator charges !", {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                })
+                return;
+            }
             setSubmitting(true)
             const res = await axios.post("/api/creator/assign_category", {
-                id: creatorId, category_id: categoryId
+                id: creatorId,
+                category_id: categoryId,
+                creator_charges: creatorCharges
             });
             setSubmitting(false)
             if (res.data.status == 1) {
@@ -121,6 +135,17 @@ const Request = () => {
         }
     }
 
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 700)
+    }, [])
+
+    if (loading) {
+        return <Loader />
+    }
+
     return (
         <div id="main-content">
             <div className="container-fluid">
@@ -155,10 +180,10 @@ const Request = () => {
                                             <tr key={ind}>
                                                 <td className="w60">{ind + 1}</td>
                                                 <td className='text-center'><div className="user-account m-0  influencer">
-                                                    <label htmlFor="influencer_2" style={{border:"none"}} className="w-100 d-flex justify-content-between ">
+                                                    <label htmlFor="influencer_2" style={{ border: "none" }} className="w-100 d-flex justify-content-between ">
                                                         <div className='d-flex'>
                                                             <div className="" style={{ borderRadius: "50px", margin: "5px" }}>
-                                                                <img src={`/uploads/${ele.profile_image}`} className="user-photo" alt="Profile pic" width={"40px"} height={"40px"} style={{ borderRadius: "50px" }} />
+                                                                <img src={`/uploads/${ele.profile_image}`} className="user-photo" alt="Profile pic" width={"40px"} height={"40px"} style={{ borderRadius: "50px", objectFit: "cover" }} />
                                                             </div>
                                                             <div className='d-flex flex-column align-items-start justify-content-center'>
                                                                 <span className='mb-0' style={{ color: "white" }}><em>@</em><a href={ele.profile_link} style={{ color: "white", textDecoration: "underline" }} target='_blank'>{ele.username}</a></span>
@@ -210,18 +235,19 @@ const Request = () => {
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalCenterTitle" >Assign Category</h5>
+                                <h5 className="modal-title" id="exampleModalCenterTitle" >Add Creator</h5>
                                 <button type="button" className="close" data-dismiss="modal"
                                     aria-label="Close" onClick={() => setToggleVerify(!toggleVerify)}>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
+                                <h6 className='my-2'>Select Category</h6>
                                 <div className="input-group mb-3">
                                     <div className="input-group-prepend">
                                         <label className="input-group-text" htmlFor="inputGroupSelect01">Category</label>
                                     </div>
-                                    <select className="custom-select" id="inputGroupSelect01" onChange={(e) => setCategoryId(e.target.value)}>
+                                    <select className="custom-select" id="inputGroupSelect01" onChange={(e) => setCategoryId(e.target.value)} value={categoryId}>
                                         <option defaultChecked hidden>Select Category</option>
                                         {
                                             categoryData?.map((ele, ind) =>
@@ -230,9 +256,19 @@ const Request = () => {
                                         }
                                     </select>
                                 </div>
+                                <h6 className='my-2'>Creator Charge</h6>
+                                <div className="input-group ">
+
+                                    <input type="number" min={0} className={`form-control`} placeholder="Set creator charges" value={creatorCharges} onChange={(e) => setCreatorCharges(e.target.value)} />
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">
+                                            &#8377;
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-round btn-primary" onClick={handleAssign} disabled={submitting}>{submitting ? "Assigning.." : "Assign"}</button>
+                            <div className="modal-footer d-flex justify-content-start">
+                                <button type="button" className="btn btn-round btn-primary" onClick={handleAssign} disabled={submitting}>{submitting ? "Adding.." : "Add"}</button>
                             </div>
                         </div>
                     </div>

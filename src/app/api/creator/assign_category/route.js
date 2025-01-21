@@ -22,8 +22,8 @@ const transporter = nodemailer.createTransport({
 export const POST = async (request) => {
     connectDB();
     try {
-        const { id, category_id } = await request.json();
-        const data = await creatorModel.findByIdAndUpdate({ _id: id }, { category_Id: category_id, isVerified: 1 });
+        const { id, category_id, creator_charges } = await request.json();
+        const data = await creatorModel.findByIdAndUpdate({ _id: id }, { category_Id: category_id, isVerified: 1, creator_charges: creator_charges });
         if (!data) {
             return NextResponse.json({ message: " Unable to verify creator", status: 0 });
         }

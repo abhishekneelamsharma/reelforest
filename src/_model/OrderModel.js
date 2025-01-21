@@ -30,6 +30,14 @@ const OrderSchmea = new mongoose.Schema({
             isCompleted: {
                 type: Number,
                 default: 0
+            },
+            isVerified: {
+                type: Number,
+                default: 0
+            },
+            video_link: {
+                type: String,
+                default: null
             }
         }
     ]

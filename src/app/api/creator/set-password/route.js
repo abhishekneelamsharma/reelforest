@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken"
 import creatorModel from "@/_model/CreatorModel";
+import connectDB from "@/utils/connect";
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
 export const POST = async (request) => {
+    connectDB();
     try {
         const { token, password } = await request.json();
         if (!token || !password) {

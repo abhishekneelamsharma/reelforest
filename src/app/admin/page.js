@@ -1,11 +1,12 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Chart as ChartJS, ArcElement, Legend, Tooltip as ToolTipChart } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Line, Bar, } from 'recharts';
 
 import dynamic from 'next/dynamic';
+import Loader from '@/_components/global/Loader';
 const AreaChart = dynamic(() => import('recharts').then((mod) => mod.AreaChart), { ssr: false });
 const LineChart = dynamic(() => import('recharts').then((mod) => mod.LineChart), { ssr: false });
 const BarChart = dynamic(() => import('recharts').then((mod) => mod.BarChart), { ssr: false });
@@ -137,6 +138,19 @@ const data3 = [
 const page = () => {
     ChartJS.register(ArcElement, Legend, ToolTipChart);
 
+    const [loading, setLoading] = useState(true);
+
+    
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 700)
+    }, [])
+
+    if (loading) {
+        return <Loader />
+    }
 
     return (
         <div id="main-content">
@@ -264,7 +278,7 @@ const page = () => {
                                         <div id="chart-donut d-flex justify-content-center" style={{
                                             height: "250px",
                                             display: "flex",
-                                            justifyContent:"center"
+                                            justifyContent: "center"
                                         }}>
                                             <Doughnut data={data1} options={options1} />
                                         </div>

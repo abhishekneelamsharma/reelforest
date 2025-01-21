@@ -37,7 +37,7 @@ export async function middleware(request) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    if (token.role == "User" && !token.language) {
+    if (token.role == "User" && pathname.startsWith("/new-order") && !token.language) {
         return NextResponse.redirect(new URL('/language', request.url))
     }
 
@@ -45,5 +45,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/admin/:path*', '/creator/:path*', '/new-order', '/order', '/all-funds', '/wallet', '/'],
+    matcher: ['/admin/:path*', '/creator/:path*', '/new-order', '/order', '/add-funds', '/wallet', '/'],
 };

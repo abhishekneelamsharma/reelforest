@@ -1,4 +1,5 @@
 import creatorModel from "@/_model/CreatorModel";
+import connectDB from "@/utils/connect";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer"
 
@@ -17,7 +18,9 @@ const transporter = nodemailer.createTransport({
 });
 
 export const POST = async (request) => {
+    connectDB();
     try {
+
         const { id } = await request.json();
         const data = await creatorModel.findByIdAndDelete({ _id: id });
         if (!data) {

@@ -1,7 +1,7 @@
 import Myparticle from "@/_components/global/MyPartical";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react"
-import { LanguageProvider } from "@/_context/LanguageContext";
+
 
 export const metadata = {
   title: "Create Next App",
@@ -21,9 +21,7 @@ export default function RootLayout({ children }) {
       </head>
       <body >
         <SessionProvider>
-          <LanguageProvider>
             {children}
-          </LanguageProvider>
         </SessionProvider>
         <div className='particle-js'>
           <Myparticle />

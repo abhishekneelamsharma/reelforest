@@ -13,7 +13,7 @@ export const POST = async (request) => {
         }
         const isVerified = await creatorModel.findOne({ email, password });
         if (isVerified) {
-            return NextResponse.json({ message: "Creator login successfully", status: 1, role: isVerified.role });
+            return NextResponse.json({ message: "Creator login successfully", status: 1, role: isVerified.role, fullname: isVerified.fullname,_id:isVerified._id });
         }
         return NextResponse.json({ message: "Invalid credentials", status: 0 });
     } catch (err) {

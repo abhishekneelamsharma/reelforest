@@ -8,7 +8,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: "user-credentials",
             id: "user-credentials",
             authorize: async (credentials) => {
-                const user = { email: credentials.email, role: credentials.role,language:credentials.language }
+                const user = { user_id: credentials.user_id, username: credentials.username, role: credentials.role, language: credentials.language }
                 if (user) {
                     return user
                 } else {
@@ -32,7 +32,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: "creator-credentials",
             id: "creator-credentials",
             authorize: async (credentials) => {
-                const user = { email: credentials.email, role: credentials.role }
+                const user = { email: credentials.email, user_id: credentials.creator_id, role: credentials.role, name: credentials.name }
+                console.log(user);
                 if (user) {
                     return user
                 } else {
@@ -43,15 +44,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     ],
     callbacks: {
         jwt({ token, user }) {
-            if (user){
+            if (user) {
                 token.role = user.role
                 token.language = user.language
+                token.user_id = user.user_id
+                token.name = user.name
             }
             return token
         },
         session({ session, token }) {
             session.user.role = token.role
             session.user.language = token.language
+            session.user.user_id = token.user_id
+            session.user.name = token.name
             return session
         }
     },

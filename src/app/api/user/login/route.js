@@ -15,7 +15,7 @@ export const POST = async (request) => {
         if (isVerified) {
             const matchPass = await bcrypt.compare(password, isVerified.password);
             if (matchPass) {
-                return NextResponse.json({ message: "User login successfully", status: 1, role:isVerified.role });
+                return NextResponse.json({ message: "User login successfully", status: 1, user_id: isVerified._id, role: isVerified.role, username: isVerified.name, walletAmount: isVerified.walletAmount });
             }
         }
         return NextResponse.json({ message: "Invalid credentials", status: 0 });

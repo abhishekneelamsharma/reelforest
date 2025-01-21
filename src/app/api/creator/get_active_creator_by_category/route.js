@@ -5,9 +5,15 @@ import { NextResponse } from "next/server";
 export const POST = async (request) => {
     connectDB();
     try {
-        const { category_id } = await request.json();
-        console.log(category_id)
-        const data = await creatorModel.find({ category_Id: category_id, status: 1 });
+        const { category_id, language } = await request.json();
+        const languageArray = language.split(",")
+        console.log(languageArray)
+        const data = await creatorModel.find({
+            category_Id: category_id,
+            status: 1,
+            language: { $in: languageArray },
+            isVerified: 1
+        })
         if (!data) {
             return NextResponse.json({ message: "Unable to get creator data", status: 0 });
         }

@@ -3696,10 +3696,11 @@ ul.choose-skin li.active div::after {
 }
 
 .fancy-checkbox input[type="checkbox"]:checked+span:before {
-    font-size: 18px;
+    font-size: 14px;
     font-family: "FontAwesome";
     content: '\f0c8';
     color: #007bff;
+    background-color: #007bff;
     line-height: 14px;
 }
 
@@ -13356,6 +13357,12 @@ input[type="checkbox"]:checked {
     outline: none;
 }
 
-.cretor-card{
+.cretor-card {
     width: 700px;
+}
+
+.theme-cyan .sidebar-nav .metismenu .logout:hover i,
+.theme-cyan .sidebar-nav .metismenu .logout:focus i {
+    background: none;
+    color: #fff
 }

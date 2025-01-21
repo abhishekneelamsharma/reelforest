@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
     connectDB();
     try {
-        let data = await orderModel.find({}).lean();
+        let data = await orderModel.find({}).sort({ _id: -1 }).lean();
         if (!data) {
             return NextResponse.json({ message: "Unable to get order data", status: 0 });
         }
@@ -14,7 +14,7 @@ export const GET = async (request) => {
 
         data = data.map((element) => {
             const findUser = user.find((ele) => ele._id == element.user_id)
-            const completed = element?.assigned_creator?.filter((ele) => ele.isCompleted == 1).length;
+            const completed = element?.assigned_creator?.filter((ele) => ele.isVerified == 1).length;
             element.completedOrder = completed;
             element.username = findUser.name
             return element;

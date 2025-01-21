@@ -32,7 +32,7 @@ const page = () => {
                     },
                 })
 
-                await signIn("creator-credentials", { email: data.email, role: res.data.role, redirect: false });
+                await signIn("creator-credentials", { creator_id: res.data._id,name: res.data.fullname, email: data.email, role: res.data.role, redirect: false });
                 console.log(res.data);
                 router.push("/creator");
             } else {

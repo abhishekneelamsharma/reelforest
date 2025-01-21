@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { signIn, useSession } from 'next-auth/react'
 
+
 const page = () => {
 
     const {
@@ -17,8 +18,7 @@ const page = () => {
     const router = useRouter();
 
     const [showPass, setShowPass] = useState(false);
-    const session = useSession();
-  
+
 
     const onSubmit = async (data) => {
         try {
@@ -31,9 +31,8 @@ const page = () => {
                         color: '#fff',
                     },
                 })
-
-                await signIn("user-credentials", { email: data.email, role: res.data.role, redirect: false });
-                router.push("/language");
+                await signIn("user-credentials", { user_id: res.data.user_id, email: data.email, role: res.data.role, username: res.data.username, redirect: false });
+                router.push("/");
             } else {
                 toast.error(res.data.message, {
                     style: {
@@ -52,7 +51,6 @@ const page = () => {
         setShowPass(!showPass);
     }
 
-   
 
     return (
         <>

@@ -1,7 +1,7 @@
 "use client"
 
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -14,6 +14,7 @@ const Register = () => {
     } = useForm()
     const [profileImage, setProfileImage] = useState();
     const [language, setLanguage] = useState([]);
+    const [languageData, setLanguageData] = useState();
 
     const handleProfileImage = (e) => {
         setProfileImage(e.target.files[0])
@@ -81,7 +82,20 @@ const Register = () => {
         }
     }
 
-    console.log(language);
+
+
+    const getLanguageData = async () => {
+        try {
+            const res = await axios.get("/api/language/get_active_language");
+            setLanguageData(res.data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        getLanguageData();
+    }, [])
 
     return (
         <>
@@ -232,21 +246,12 @@ const Register = () => {
                                     }
                                 </div>
                                 <div className="col-12 d-flex px-0">
-                                    <div className="fancy-checkbox">
-                                        <label><input type="checkbox" name='language' onClick={handleCheckBoxChange} value={"Hindi"} /><span>Hindi</span></label>
-                                    </div>
-                                    <div className="fancy-checkbox">
-                                        <label><input type="checkbox" name='language' onClick={handleCheckBoxChange} value={"English"} /><span>English</span></label>
-                                    </div>
-                                    <div className="fancy-checkbox">
-                                        <label><input type="checkbox" name='language' onClick={handleCheckBoxChange} value={"Marathi"} /><span>Marathi</span></label>
-                                    </div>
-                                    <div className="fancy-checkbox">
-                                        <label><input type="checkbox" name='language' onClick={handleCheckBoxChange} value={"Tamil"} /><span>Tamil</span></label>
-                                    </div>
-                                    <div className="fancy-checkbox">
-                                        <label><input type="checkbox" name='language' onClick={handleCheckBoxChange} value={"Telgu"} /><span>Telgu</span></label>
-                                    </div>
+                                    {
+                                        languageData?.map((ele, ind) =>
+                                            <div className="fancy-checkbox" key={ind}>
+                                                <label><input type="checkbox" name='language' onClick={handleCheckBoxChange} value={ele.language} /><span>{ele.language}</span></label>
+                                            </div>)
+                                    }
                                 </div>
 
                                 <button type="submit" className="btn btn-primary btn-round ml-3" disabled={isSubmitting}>{isSubmitting ? "Sending Request..." : "Send Request"}</button>

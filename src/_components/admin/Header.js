@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Header = ({ toggle, setToggle }) => {
@@ -11,8 +12,8 @@ const Header = ({ toggle, setToggle }) => {
                 <div className="container-fluid">
                     <div className="navbar-left">
                         <div className="navbar-btn">
-                            <a href="#"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
-                                alt="Oculux Logo" className="img-fluid logo" /></a>
+                            <Link href="/admin"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
+                                alt="Oculux Logo" className="img-fluid logo" /></Link>
                             <button type="button" className="btn-toggle-offcanvas"><i
                                 className="lnr lnr-menu fa fa-bars" onClick={handleToggle}></i></button>
                         </div>
@@ -24,8 +25,8 @@ const Header = ({ toggle, setToggle }) => {
                                     <a href="javascript:void(0);" className="icon-menu" title="Search Result">
                                         <div className='d-flex align-items-center'>
                                             
-                                            <span className='pr-3'>$ 0.00</span>
-                                            <i className="icon-wallet"></i>
+                                            {/* <span className='pr-3'></span> */}
+                                            <i className="py-2 pb-3"></i>
                                         </div>
                                     </a>
                                 </li>
