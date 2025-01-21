@@ -16,6 +16,8 @@ const Language = () => {
     const user_id = session?.data?.user?.user_id
     const username = session?.data?.user?.username
 
+    console.log(session);
+
     const handleContinue = async (e) => {
 
         e.preventDefault();
@@ -42,6 +44,8 @@ const Language = () => {
             setLanguage((prev) => prev.filter((lan) => lan !== language))
         }
     }
+
+   
 
     useEffect(() => {
         getData();

@@ -9,7 +9,7 @@ export async function middleware(request) {
         cookieName: "__Secure-authjs.session-token"
     })
 
-    console.log("Hello"+token);
+    console.log("Hello" + token);
 
     const pathname = request.nextUrl.pathname;
 
