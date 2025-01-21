@@ -33,6 +33,7 @@ const Language = () => {
         }
         setContinueLoading(true);
         await signIn("user-credentials", { role: "User", user_id: user_id, redirect: false, language: language, username: username });
+        setContinueLoading(false);
         router.push("/new-order")
     }
 
