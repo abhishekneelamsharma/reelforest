@@ -43,7 +43,7 @@ export async function middleware(request) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    if (token.role == "User" && pathname.startsWith("/new-order") && token.language != "undefined") {
+    if (token.role == "User" && pathname.startsWith("/new-order") && token.language == "undefined") {
         return NextResponse.redirect(new URL('/language', request.url))
     }
     
