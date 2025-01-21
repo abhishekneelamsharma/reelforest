@@ -3,9 +3,13 @@ import { getToken } from "next-auth/jwt"
 
 export async function middleware(request) {
 
-    const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
-    
-    console.log(token);
+    const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
+        cookieName: "__Secure-authjs.session-token"
+    })
+
+    console.log("Hello"+token);
 
     const pathname = request.nextUrl.pathname;
 
