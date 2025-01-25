@@ -25,6 +25,7 @@ const OrderRequest = () => {
             });
             if (res.data.status == 1) {
                 setOrderData(res.data.data);
+                setLoading(false)
             }
         } catch (err) {
             console.log(err);
@@ -70,11 +71,11 @@ const OrderRequest = () => {
     }
 
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 700)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 700)
+    // }, [])
 
     if (loading) {
         return <Loader />

@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 const Order = () => {
 
     const [orderData, setOrderData] = useState();
-
+    const [active, setActive] = useState(0);
     const session = useSession();
     const user_id = session?.data?.user?.user_id;
 
@@ -30,7 +30,7 @@ const Order = () => {
             console.log(err);
         }
     }
-    
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -53,6 +53,14 @@ const Order = () => {
                         </div>
                     </div>
                 </div>
+                <div className="mb-4 d-flex flex-column flex-sm-row" style={{ gap: "5px" }}>
+                    <button type="button" className={`btn btn-round px-4 ${active == 0 ? "btn-info" : "btn-outline-info"}`}
+                        onClick={() => setActive(0)}>Pending
+                    </button>
+                    <button type="button" className={`btn btn-round px-4 ${active == 1 ? "btn-info" : "btn-outline-info"}`}
+                        onClick={() => setActive(1)}>Completed
+                    </button>
+                </div>
                 <div className="col-12">
                     <div className="table-responsive">
                         <table className="table header-border table-hover table-custom spacing5">
@@ -69,20 +77,46 @@ const Order = () => {
                             </thead>
                             <tbody>
                                 {
-                                    orderData?.map((ele, ind) =>
-                                        <tr key={ind}>
-                                            <th className="w60">{ind + 1}</th>
-                                            <td>{ele._id}</td>
-                                            <td className='text-center'>{ele.total_no_of_creators}</td>
-                                            <td className='text-center'>{ele.total_amount}</td>
-                                            <td className='text-center'>
-                                                <a href={ele.audio_link} target='_blank'>Link</a>
-                                            </td>
-                                            <td className='text-center'><span className=" badge-warning " >
-                                                {ele.completedOrder}/{ele.total_no_of_creators}</span>
-                                            </td>
-                                            <td className='text-center'><DateFomatter time={ele.createdAt || ''} /></td>
-                                        </tr>
+                                    orderData?.map((ele, ind) => {
+                                        if (active == 0) {
+                                            if (ele.completedOrder < ele.total_no_of_creators) {
+                                                return (
+                                                    <tr key={ind}>
+                                                        <th className="w60">{ind + 1}</th>
+                                                        <td>{ele._id}</td>
+                                                        <td className='text-center'>{ele.total_no_of_creators}</td>
+                                                        <td className='text-center'>{ele.total_amount}</td>
+                                                        <td className='text-center'>
+                                                            <a href={ele.audio_link} target='_blank'>Link</a>
+                                                        </td>
+                                                        <td className='text-center'><span className=" badge-warning " >
+                                                            {ele.completedOrder}/{ele.total_no_of_creators}</span>
+                                                        </td>
+                                                        <td className='text-center'><DateFomatter time={ele.createdAt || ''} /></td>
+                                                    </tr>
+                                                )
+                                            }
+                                        } else {
+                                            if (ele.completedOrder >= ele.total_no_of_creators) {
+                                                return (
+                                                    <tr key={ind}>
+                                                        <th className="w60">{ind + 1}</th>
+                                                        <td>{ele._id}</td>
+                                                        <td className='text-center'>{ele.total_no_of_creators}</td>
+                                                        <td className='text-center'>{ele.total_amount}</td>
+                                                        <td className='text-center'>
+                                                            <a href={ele.audio_link} target='_blank'>Link</a>
+                                                        </td>
+                                                        <td className='text-center'><span className=" badge-warning " >
+                                                            {ele.completedOrder}/{ele.total_no_of_creators}</span>
+                                                        </td>
+                                                        <td className='text-center'><DateFomatter time={ele.createdAt || ''} /></td>
+                                                    </tr>
+                                                )
+                                            }
+                                        }
+                                    }
+
                                     )
                                 }
 

@@ -84,8 +84,7 @@ const Sidebar = (
                         <li><Link href="/new-order"><i className="icon-bag" ></i><span>New Order</span></Link></li>
                         <li><Link href="/order"><i
                             className="icon-bag"></i><span>Order</span></Link></li>
-                        <li><Link href="/add-funds"><i
-                            className="icon-credit-card"></i><span>Add Funds</span></Link></li>
+                      
                         {/* <li><Link href="/wallet"><i
                             className="icon-wallet"></i><span>Wallet</span></Link></li> */}
                         <li>

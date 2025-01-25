@@ -13257,8 +13257,10 @@ input[type="checkbox"]:checked {
 
 .language input {
     appearance: none;
-    width: 35px;
-    height: 30px;
+    /* width: 35px;
+    height: 30px; */
+    width: 26px;
+    height: 23px;
     border: 2px solid #555;
     border-radius: 5px;
     background-color: #fff;
@@ -13365,4 +13367,24 @@ input[type="checkbox"]:checked {
 .theme-cyan .sidebar-nav .metismenu .logout:focus i {
     background: none;
     color: #fff
+}
+
+
+
+/* Confirm button background and text color */
+.swal-confirm-button {
+  background-color: #007bff !important; /* Button background color */
+  color: #ffffff !important; /* Button text color */
+  border: none !important;
+  border-radius: 5px !important; /* Optional: Rounded corners */
+  padding: 10px 20px !important; /* Optional: Button size */
+  outline: none;
+}
+.swal-confirm-button:focus {
+    outline: none;
+    border: none;
+  }
+
+.html-content p{
+    color:#ffffff
 }

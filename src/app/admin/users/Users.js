@@ -5,14 +5,16 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { useForm } from "react-hook-form"
 import Loader from "@/_components/global/Loader"
+import toast from "react-hot-toast"
 
 const Users = () => {
     const [data, setData] = useState();
     const [toggleFunds, setToggleFunds] = useState(false);
     const [userId, setUserId] = useState();
+    const [userName, setUserName] = useState();
     const { register, handleSubmit, reset, formState: { errors, isSubmitting }, } = useForm({
         defaultValues: {
-            walletAmount: "", 
+            walletAmount: "",
         }
     })
     const [loading, setLoading] = useState(true);
@@ -45,13 +47,20 @@ const Users = () => {
                 reset();
                 getData();
                 setToggleFunds(!toggleFunds)
+                toast.success(`Fund Added to ${userName.toUpperCase()}`, {
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                })
             }
         } catch (err) {
             console.log(err);
         }
     }
 
-    
+
     if (loading) {
         return <Loader />
     }
@@ -90,13 +99,14 @@ const Users = () => {
                                     data?.map((ele, ind) =>
                                         <tr key={ind}>
                                             <td>{ele._id}</td>
-                                            <td>{ele.name}</td>
+                                            <td>{ele.name.toUpperCase()}</td>
                                             <td>{ele.email}</td>
                                             <td className="text-center">{ele.walletAmount}</td>
                                             <td className="text-center">
                                                 <a href="#" className="badge badge-warning" onClick={() => {
                                                     setToggleFunds(!toggleFunds)
                                                     setUserId(ele._id)
+                                                    setUserName(ele.name)
                                                 }}>
                                                     Add
                                                 </a>

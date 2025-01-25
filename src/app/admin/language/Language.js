@@ -20,6 +20,7 @@ const Language = () => {
         try {
             const res = await axios.get("/api/language/get_language");
             setData(res.data.data);
+            setLoading(false)
         } catch (err) {
             console.log(err);
         }
@@ -204,11 +205,11 @@ const Language = () => {
 
 
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 700)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 700)
+    // }, [])
 
     if (loading) {
         return <Loader />
@@ -220,7 +221,7 @@ const Language = () => {
                 <div className="block-header">
                     <div className="row clearfix">
                         <div className="col-12 d-flex justify-content-between">
-                            <h1 style={{ color: "#17a2b8" }} className='ml-3'>CATEGORIES</h1>
+                            <h1 style={{ color: "#17a2b8" }} className='ml-3'>Language</h1>
                             <a href="#" className='btn btn-info mr-3' onClick={() => setToggleCreate(!toggleCreate)}>CREATE</a>
                         </div>
 

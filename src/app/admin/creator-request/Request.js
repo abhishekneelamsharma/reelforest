@@ -33,8 +33,8 @@ const Request = () => {
     const getData = async () => {
         try {
             const res = await axios.get("/api/creator/get_creator_requests");
-            console.log(res.data.data);
             setCreatorData(res.data.data);
+            setLoading(false)
         } catch (err) {
             console.log(err);
         }
@@ -80,6 +80,7 @@ const Request = () => {
                 })
                 getData();
                 setCategoryId("");
+                setCreatorCharges("")
                 setToggleVerify(false)
             } else {
                 toast.error(res.data.message, {
@@ -136,11 +137,11 @@ const Request = () => {
     }
 
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 700)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 700)
+    // }, [])
 
     if (loading) {
         return <Loader />

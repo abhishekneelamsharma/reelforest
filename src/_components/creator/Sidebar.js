@@ -86,10 +86,8 @@ const Sidebar = (
                         {/* <li><Link href="/creator/new-order"><i className="icon-bag" ></i><span>New Order</span></Link></li> */}
                         <li><Link href="/creator/order"><i
                             className="icon-bag"></i><span>Order</span></Link></li>
-                        <li><Link href="/creator/add-funds"><i
-                            className="icon-credit-card"></i><span>Add Funds</span></Link></li>
-                        <li><Link href="/creator/wallet"><i
-                            className="icon-wallet"></i><span>Wallet</span></Link></li>
+                        {/* <li><Link href="/creator/wallet"><i
+                            className="icon-wallet"></i><span>Wallet</span></Link></li> */}
                         <li>
                             <Link href="/" className='d-flex justify-content-center my-4' onClick={handleSignout}>
                                 <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="fa-solid fa-right-from-bracket " style={{ marginRight: 0 }}></i></span>

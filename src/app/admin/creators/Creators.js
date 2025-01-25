@@ -4,6 +4,8 @@ import { DataTable } from "simple-datatables"
 import React, { useEffect, useState } from 'react'
 import Swal from "sweetalert2"
 import Loader from "@/_components/global/Loader"
+import { useForm } from 'react-hook-form'
+import Link from "next/link"
 
 const Creators = () => {
     const [categoryId, setCategoryId] = useState("67810c233ad0eb9e46b58a85");
@@ -11,22 +13,12 @@ const Creators = () => {
     const [categoryData, setCategoryData] = useState();
     const [loading, setLoading] = useState(true);
 
+    
+
     const handleCategoryId = (id) => {
         setCategoryId(id);
     }
 
-    useEffect(() => {
-        if (creatorData) {
-            new DataTable("#myTable")
-        }
-    }, [creatorData])
-
-
-    useEffect(() => {
-        if (categoryId) {
-            getData();
-        }
-    }, [categoryId])
 
     const getData = async () => {
         try {
@@ -53,9 +45,6 @@ const Creators = () => {
         }
     }
 
-    useEffect(() => {
-        getCategoryData();
-    }, [])
 
     const handleChangeStatus = async (id, status) => {
         const result = await Swal.fire({
@@ -87,8 +76,32 @@ const Creators = () => {
         }
     }
 
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors, isSubmitting },
+    } = useForm()
 
 
+
+
+
+    useEffect(() => {
+        if (creatorData) {
+            new DataTable("#myTable")
+        }
+    }, [creatorData])
+
+    useEffect(() => {
+        if (categoryId) {
+            getData();
+        }
+    }, [categoryId])
+
+    useEffect(() => {
+        getCategoryData();
+    }, [])
 
     if (loading) {
         return <Loader />
@@ -105,8 +118,9 @@ const Creators = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mb-4 d-flex flex-column flex-sm-row" style={{ gap: "5px" }}>
-                        {/* <select className="custom-select" id="inputGroupSelect01">
+                    <div className="d-flex justify-content-between">
+                        <div className="mb-4 d-flex flex-column flex-sm-row" style={{ gap: "5px" }}>
+                            {/* <select className="custom-select" id="inputGroupSelect01">
                                             <option defaultChecked hidden>Select Category</option>
                                             <option value="1">Premium Creator</option>
                                             <option value="2">Micro Creator</option>
@@ -115,11 +129,15 @@ const Creators = () => {
                                             <option value="3">Page Creator</option>
                                         </select> */}
 
-                        {
-                            categoryData?.map((ele, ind) =>
-                                <button type="button" className={`btn btn-round ${categoryId == ele._id ? "btn-info" : "btn-outline-info"}`}
-                                    data-target="#exampleModalCenter" style={{ width: "110px" }} onClick={() => handleCategoryId(ele._id)} key={ind}>{ele.category_name.split(" ")[0]} </button>)
-                        }
+                            {
+                                categoryData?.map((ele, ind) =>
+                                    <button type="button" className={`btn btn-round ${categoryId == ele._id ? "btn-info" : "btn-outline-info"}`}
+                                        data-target="#exampleModalCenter" style={{ width: "110px" }} onClick={() => handleCategoryId(ele._id)} key={ind}>{ele.category_name.split(" ")[0]} </button>)
+                            }
+                        </div>
+                        <div>
+                            <Link href="/creator/create-creator" className="btn btn-info" >Create Creator</Link>
+                        </div>
                     </div>
                     <div className="body">
                         <div className="table-responsive">
@@ -185,6 +203,9 @@ const Creators = () => {
                             </table>
                         </div>
                     </div>
+
+
+                   
                 </div>
             </div>
         </>

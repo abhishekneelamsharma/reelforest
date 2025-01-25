@@ -14,6 +14,7 @@ const Category = () => {
         try {
             const res = await axios.get("/api/category/get_all_category");
             setData(res.data.data);
+            setLoading(false)
         } catch (err) {
             console.log(err);
         }
@@ -26,11 +27,11 @@ const Category = () => {
     
 
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 700)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 700)
+    // }, [])
 
     if (loading) {
         return <Loader />

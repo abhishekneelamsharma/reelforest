@@ -5,6 +5,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
+
 
 const page = () => {
 
@@ -101,6 +103,9 @@ const page = () => {
                                         <input type="checkbox" onClick={handleShowPass} />
                                         <span>Show Password</span>
                                     </label>
+                                    <Link href="/admin/forget-password" className='float-right'>
+                                        <em style={{fontSize:"13px"}}>Forget Password?</em>
+                                    </Link>
                                 </div>
                                 <button type="submit" className="btn btn-primary btn-round mt-3 px-5"
                                     disabled={isSubmitting}  >{isSubmitting ? "LOADING..." : "LOGIN"}</button>

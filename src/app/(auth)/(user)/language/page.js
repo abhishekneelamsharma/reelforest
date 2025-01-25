@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import axios from 'axios';
 import Loader from '@/_components/global/Loader';
 
@@ -16,10 +16,9 @@ const Language = () => {
     const user_id = session?.data?.user?.user_id
     const username = session?.data?.user?.username
 
-    console.log(session);
+    
 
     const handleContinue = async (e) => {
-
         e.preventDefault();
         if (language.length == 0) {
             toast.error("Please select at least one language", {
@@ -31,11 +30,14 @@ const Language = () => {
             })
             return;
         }
+
         setContinueLoading(true);
         await signIn("user-credentials", { role: "User", user_id: user_id, redirect: false, language: language, username: username });
         setContinueLoading(false);
-        router.push("/new-order")
+
+        router.replace("/new-order")
     }
+   
 
     const handleLanguageChange = (e) => {
         const language = e.target.value;
@@ -92,8 +94,8 @@ const Language = () => {
                     }
 
                     <div>
-                        <button className='btn btn-info btn-round px-5 py-3 w-100 my-3' disabled={continueLoading}><p className='mb-0' style={{ fontSize: "18px", fontWeight: "400" }}
-                            onClick={handleContinue}
+                        <button className='btn btn-info btn-round px-5 py-3 w-100 my-3' disabled={continueLoading}  onClick={handleContinue}><p className='mb-0' style={{ fontSize: "18px", fontWeight: "400" }}
+                           
                         >{continueLoading ? "Loading..." : "Continue"}</p></button>
                     </div>
                 </div>

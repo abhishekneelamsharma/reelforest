@@ -6,12 +6,11 @@ export const POST = async (request) => {
     connectDB();
     try {
         const { category_id, language } = await request.json();
-        const languageArray = language.split(",")
-        console.log(languageArray)
+
         const data = await creatorModel.find({
             category_Id: category_id,
             status: 1,
-            language: { $in: languageArray },
+            language: { $in: language },
             isVerified: 1
         })
         if (!data) {

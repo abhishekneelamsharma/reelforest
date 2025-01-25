@@ -40,7 +40,11 @@ const OrderSchmea = new mongoose.Schema({
                 default: null
             }
         }
-    ]
+    ], 
+    order_status: {
+        type: Number,
+        default: 0
+    }
 }, {
     timestamps: true
 })

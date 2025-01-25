@@ -1,10 +1,19 @@
+"use client"
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+
 
 const Header = ({ toggle, setToggle }) => {
 
+    const router = useRouter();
     const handleToggle = () => {
         setToggle(true)
+    }
+    const handleSignOut = async () => {
+        await signOut({ redirect: false })
+        router.replace("/admin/admin-login")
     }
     return (
         <>
@@ -24,7 +33,7 @@ const Header = ({ toggle, setToggle }) => {
                                 <li>
                                     <a href="javascript:void(0);" className="icon-menu" title="Search Result">
                                         <div className='d-flex align-items-center'>
-                                            
+
                                             {/* <span className='pr-3'></span> */}
                                             <i className="py-2 pb-3"></i>
                                         </div>
@@ -33,7 +42,7 @@ const Header = ({ toggle, setToggle }) => {
                                 {/* <li><a href="javascript:void(0);" className="right_toggle icon-menu" title="Right Menu"><i
                                     className="icon-bubbles"></i><span className="notification-dot bg-pink">2</span></a>
                                 </li> */}
-                                {/* <li><a href="page-login.html" className="icon-menu"><i className="icon-power"></i></a></li> */}
+                                <li onClick={handleSignOut}><a href="#" className="icon-menu"><i className="icon-power"></i></a></li>
                             </ul>
                         </div>
                     </div>

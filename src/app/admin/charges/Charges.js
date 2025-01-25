@@ -22,6 +22,7 @@ const Charges = () => {
                         color: '#fff',
                     },
                 })
+                setLoading(false)
             } else {
                 toast.error(res.data.message, {
                     style: {
@@ -59,11 +60,11 @@ const Charges = () => {
 
 
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 700)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 700)
+    // }, [])
 
     if (loading) {
         return <Loader />

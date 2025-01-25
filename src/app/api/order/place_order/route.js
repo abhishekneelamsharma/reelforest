@@ -42,10 +42,12 @@ export const POST = async (request) => {
         })
         await newOrder.save();
 
+        //Update user Wallet Money
         const user = await userModel.findOne({ _id: user_id })
         const walletAmount = user.walletAmount - Number(total_amount)
         await userModel.findByIdAndUpdate({ _id: user_id }, { walletAmount: walletAmount })
 
+        //Delete Cart Model
         await cartModel.findByIdAndDelete({ _id: cart_id })
         
         return NextResponse.json({ message: "Order Placed !", status: 1 });

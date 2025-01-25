@@ -94,11 +94,14 @@ const page = () => {
                                         })} style={errors.password ? { borderColor: "red" } : {}} />
                                     {errors.password && <p style={{ color: "red", textAlign: "start", fontSize: "12px", marginLeft: "2px" }}>{errors.password.message}</p>}
                                 </div>
-                                <div className="form-group clearfix">
+                                <div className="form-group clearfix ">
                                     <label className="fancy-checkbox element-left">
                                         <input type="checkbox" onClick={handleShowPass} />
                                         <span>Show Password</span>
                                     </label>
+                                    <Link href="/forget-password" className='float-right'>
+                                        <em style={{fontSize:"13px"}}>Forget Password?</em>
+                                    </Link>
                                 </div>
                                 <button type="submit" className="btn btn-primary btn-round mt-3 px-5"
                                     disabled={isSubmitting}  >{isSubmitting ? "LOADING..." : "LOGIN"}</button>

@@ -1,9 +1,9 @@
 import React from 'react'
-import AddFunds from './AddFunds'
+import CreateCreator from './CreateCreator'
 
 const page = () => {
   return (
-    <AddFunds/>
+    <CreateCreator/>
   )
 }
 
