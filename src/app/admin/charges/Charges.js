@@ -46,6 +46,7 @@ const Charges = () => {
             const res = await axios.get('/api/charges/get_charges');
             if (res.data.status == 1) {
                 setData(res.data.data);
+                setLoading(false);
             }
         } catch (err) {
             console.log(err);
