@@ -6,7 +6,7 @@ export async function middleware(request) {
     const token = await getToken({
         req: request,
         secret: process.env.NEXTAUTH_SECRET,
-        cookieName: "__Secure-authjs.session-token"
+        // cookieName: "__Secure-authjs.session-token"
     })
 
 
@@ -41,7 +41,7 @@ export async function middleware(request) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    console.log(request.nextUrl.pathname)
+
 
     if (token.role !== "Admin" && pathname.startsWith("/admin")) {
         return NextResponse.redirect(new URL('/admin/admin-login', request.url));

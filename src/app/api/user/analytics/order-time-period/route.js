@@ -20,18 +20,15 @@ export const POST = async (request) => {
             endOfDay.setDate(0);
             endOfDay.setMonth(endOfDay.getMonth() + 1);
         } else if (time_period == "year") {
-            startOfDay.setMonth(0);
-            startOfDay.setDate(1);
+           
             startOfDay.setHours(0, 0, 0, 0);
             startOfDay.setFullYear(startOfDay.getFullYear() - 1)
 
-            endOfDay.setMonth(11)
-            endOfDay.setDate(31)
             endOfDay.setHours(23, 59, 59, 999);
-            endOfDay.setFullYear(endOfDay.getFullYear() - 1)
         }
 
 
+    
         const totalOrder = await orderModel.find({ createdAt: { $gte: startOfDay, $lte: endOfDay }, user_id: user_id })
         const completedOrder = await orderModel.find({ createdAt: { $gte: startOfDay, $lte: endOfDay }, order_status: 1, user_id: user_id })
         const pendingOrder = await orderModel.find({ createdAt: { $gte: startOfDay, $lte: endOfDay }, order_status: 0, user_id: user_id })

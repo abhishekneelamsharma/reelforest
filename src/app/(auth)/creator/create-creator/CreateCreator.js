@@ -126,7 +126,7 @@ const CreateCreator = () => {
                     <div className="auth_brand mb-2 mt-2">
                         <a className="navbar-brand" href="javascript:void(0);"><img
                             src="https://puffintheme.com/template/oculux/assets/images/icon.svg" width="30" height="30"
-                            className="d-inline-block align-top mr-2" />Reel Forest</a>
+                            className="d-inline-block align-top mr-2" />Reel Troop</a>
                     </div>
                     <div className="card " >
                         <div className="body px-4">

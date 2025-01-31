@@ -6,7 +6,7 @@ export const POST = async (request) => {
     connectDB();
     try {
         const { category_id } = await request.json();
-        const data = await creatorModel.find({ category_Id: category_id, isVerified: 1 });
+        const data = await creatorModel.find({ category_Id: category_id, isVerified: 1 }).select("-password");
         if (!data) {
             return NextResponse.json({ message: "Unable to get creator data", status: 0 });
         }

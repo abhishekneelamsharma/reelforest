@@ -16,6 +16,7 @@ const page = () => {
         formState: { errors, isSubmitting },
     } = useForm()
     const router = useRouter();
+    const session = useSession();
 
     const [showPass, setShowPass] = useState(false);
 
@@ -51,6 +52,11 @@ const page = () => {
         setShowPass(!showPass);
     }
 
+    useEffect(() => {
+        if (session?.data?.user?.role == "User") {
+            router.push("/");
+        }
+    }, [session]);
 
     return (
         <>
@@ -60,7 +66,7 @@ const page = () => {
                     <div className="auth_brand">
                         <a className="navbar-brand" href="javascript:void(0);"><img
                             src="https://puffintheme.com/template/oculux/assets/images/icon.svg" width="30" height="30"
-                            className="d-inline-block align-top mr-2" />Reel Forest</a>
+                            className="d-inline-block align-top mr-2" />Reel Troop</a>
                     </div>
                     <div className="card">
                         <div className="body py-5 px-4">
@@ -100,7 +106,7 @@ const page = () => {
                                         <span>Show Password</span>
                                     </label>
                                     <Link href="/forget-password" className='float-right'>
-                                        <em style={{fontSize:"13px"}}>Forget Password?</em>
+                                        <em style={{ fontSize: "13px" }}>Forget Password?</em>
                                     </Link>
                                 </div>
                                 <button type="submit" className="btn btn-primary btn-round mt-3 px-5"

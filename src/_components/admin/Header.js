@@ -21,8 +21,10 @@ const Header = ({ toggle, setToggle }) => {
                 <div className="container-fluid">
                     <div className="navbar-left">
                         <div className="navbar-btn">
-                            <Link href="/admin"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
-                                alt="Oculux Logo" className="img-fluid logo" /></Link>
+                            <Link href="/admin">
+                            <img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
+                                alt="Oculux Logo" className="img-fluid logo" />
+                                </Link>
                             <button type="button" className="btn-toggle-offcanvas"><i
                                 className="lnr lnr-menu fa fa-bars" onClick={handleToggle}></i></button>
                         </div>

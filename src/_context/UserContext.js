@@ -4,9 +4,9 @@ import { createContext, useState } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [walletAmount, setWalletAmount] = useState("old");
+    const [toggle, setToggle] = useState(false);
     return (
-        <UserContext.Provider value={{ walletAmount, setWalletAmount }}>
+        <UserContext.Provider value={{toggle, setToggle }}>
             {children}
         </UserContext.Provider>
     )

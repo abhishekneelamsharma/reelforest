@@ -16,10 +16,11 @@ const Sidebar = ({ toggle, setToggle }) => {
         router.replace("/admin/admin-login")
     }
     return (
+        
         <div id="left-sidebar" className="sidebar">
             <div className="navbar-brand">
                 <Link href="/admin"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
-                    alt="Oculux Logo" className="img-fluid logo" /><span>Reel Forest</span></Link>
+                    alt="Oculux Logo" className="img-fluid logo" /><span>Reel Troop</span></Link>
                 <button type="button" className="btn-toggle-offcanvas btn btn-sm float-right" onClick={handleToggle}><i
                     className="lnr lnr-menu icon-close" ></i></button>
             </div>
@@ -32,7 +33,6 @@ const Sidebar = ({ toggle, setToggle }) => {
                         <span>Welcome,</span>
                         <span className="user-name"
                         ><strong>Admin ReelForest</strong></span>
-
                     </div>
                 </div>
                 <nav id="left-sidebar-nav" className="sidebar-nav">
@@ -67,7 +67,7 @@ const Sidebar = ({ toggle, setToggle }) => {
                             className="icon-wallet"></i><span>Manage Charges</span></Link></li>
                         <li>
                             <Link href="#" className='d-flex justify-content-center my-4 logout' onClick={handleSignOut}>
-                                <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="icon-logout" style={{ marginRight: 0 }}></i></span>
+                                <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="fa-solid fa-right-from-bracket " style={{ marginRight: 0 }} ></i></span>
                             </Link>
                         </li>
 

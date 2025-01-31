@@ -1,8 +1,9 @@
 "use client"
 
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -14,7 +15,7 @@ const Register = () => {
     } = useForm()
     const [showPass, setShowPass] = useState(false)
     const router = useRouter();
-
+    const session = useSession();
 
     const onSubmit = async (data) => {
         try {
@@ -47,14 +48,21 @@ const Register = () => {
     const handleShowPassword = () => {
         setShowPass(!showPass)
     }
+    useEffect(() => {
+        if (session?.data?.user?.role == "User") {
+            router.push("/");
+        }
+    }, [session]);
     return (
         <>
             <div className="auth-main particles_js">
                 <div className="auth_div vivify popIn">
                     <div className="auth_brand">
-                        <a className="navbar-brand" href="javascript:void(0);"><img
+                        <a className="navbar-brand" href="javascript:void(0);">
+                            <img
                             src="https://puffintheme.com/template/oculux/assets/images/icon.svg" width="30" height="30"
-                            className="d-inline-block align-top mr-2" />Reel Forest</a>
+                            className="d-inline-block align-top mr-2" />
+                            Reel Troop</a>
                     </div>
                     <div className="card ">
                         <div className="body py-5 px-4">

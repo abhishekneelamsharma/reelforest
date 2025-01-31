@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
     connectDB()
     try {
-        const data = await userModel.find({}).sort({ _id: -1 });
+        const data = await userModel.find({}).sort({ _id: -1 }).select("-password");
         if (!data) {
             return NextResponse.json({ message: "Unable to get user data", status: 0 });
         }

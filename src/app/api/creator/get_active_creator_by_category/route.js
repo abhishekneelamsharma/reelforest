@@ -12,7 +12,7 @@ export const POST = async (request) => {
             status: 1,
             language: { $in: language },
             isVerified: 1
-        })
+        }).select("-password")
         if (!data) {
             return NextResponse.json({ message: "Unable to get creator data", status: 0 });
         }

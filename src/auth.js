@@ -33,7 +33,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: "creator-credentials",
             authorize: async (credentials) => {
                 const user = { email: credentials.email, user_id: credentials.creator_id, role: credentials.role, name: credentials.name }
-                console.log(user);
                 if (user) {
                     return user
                 } else {

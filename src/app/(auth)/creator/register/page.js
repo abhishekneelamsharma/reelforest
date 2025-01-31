@@ -1,6 +1,7 @@
 "use client"
 
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -15,6 +16,7 @@ const Register = () => {
     const [profileImage, setProfileImage] = useState();
     const [language, setLanguage] = useState([]);
     const [languageData, setLanguageData] = useState();
+    const session = useSession();
 
     const handleProfileImage = (e) => {
         setProfileImage(e.target.files[0])
@@ -67,7 +69,6 @@ const Register = () => {
                 })
             }
 
-            console.log(data);
         } catch (err) {
             console.log(err);
         }
@@ -83,7 +84,6 @@ const Register = () => {
     }
 
 
-
     const getLanguageData = async () => {
         try {
             const res = await axios.get("/api/language/get_active_language");
@@ -97,6 +97,12 @@ const Register = () => {
         getLanguageData();
     }, [])
 
+    useEffect(() => {
+        if (session?.data?.user?.role == "Creator") {
+            router.push("/creator");
+        }
+    }, [session]);
+
     return (
         <>
             <div className="auth-main particles_js">
@@ -104,7 +110,7 @@ const Register = () => {
                     <div className="auth_brand mb-2 mt-2">
                         <a className="navbar-brand" href="javascript:void(0);"><img
                             src="https://puffintheme.com/template/oculux/assets/images/icon.svg" width="30" height="30"
-                            className="d-inline-block align-top mr-2" />Reel Forest</a>
+                            className="d-inline-block align-top mr-2" />Reel Troop</a>
                     </div>
                     <div className="card " >
                         <div className="body px-4">

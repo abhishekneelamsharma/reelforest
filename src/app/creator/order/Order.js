@@ -23,6 +23,7 @@ const Order = () => {
                 creator_id: creator_id
             });
             setData(res.data.data);
+            setLoading(false);
         } catch (err) {
             console.log(err);
         }
@@ -57,7 +58,8 @@ const Order = () => {
                 })
                 getData();
                 setVideoLink("");
-                setToggleVideo(false)
+                setToggleVideo(false);
+                
             } else {
                 toast.error(res.data.message, {
                     style: {
@@ -82,12 +84,7 @@ const Order = () => {
 
 
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 700)
-    }, [])
-
+   
     if (loading) {
         return <Loader />
     }

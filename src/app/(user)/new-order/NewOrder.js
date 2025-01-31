@@ -20,6 +20,7 @@ const NewOrder = () => {
     const [selectedCreator, setSelectedCreator] = useState([]);
     const [cartData, setCartData] = useState();
     const [amount, setAmount] = useState(0);
+    const [baseAmount, setBaseAmount] = useState();
     const [cartLoading, setCartLoading] = useState(false);
     const [selectedNumberOfCretor, setSelectedNumberOfCretor] = useState(minNoOfCreators);
     const [audioLink, setAudioLink] = useState("");
@@ -70,7 +71,12 @@ const NewOrder = () => {
         setMinNoOfCreators(min_no_of_creators);
         setSelectedNumberOfCretor(min_no_of_creators)
         setSelectedCreator([])
-        setAmount(amount)
+        if (ind == 2 || ind == 3) {
+            setBaseAmount(amount);
+            setAmount(amount * min_no_of_creators)
+        } else {
+            setAmount(0);
+        }
     }
 
     const handleSearchCreator = (e) => {
@@ -90,7 +96,6 @@ const NewOrder = () => {
                 category_id: categoryId,
                 language: language
             })
-            console.log(res.data);
             setCreatorData(res.data.data);
             setCreatorAllData(res.data.data);
         } catch (err) {
@@ -98,15 +103,18 @@ const NewOrder = () => {
         }
     }
 
-    const handleSelectCreator = (e) => {
+    const handleSelectCreator = (e, creator_charges) => {
         const creator = e.target.value;
         if (!selectedCreator.includes(creator)) {
             setSelectedCreator((prev) => [...prev, creator]);
+            setAmount(amount + creator_charges);
         } else {
             setSelectedCreator((prev) => prev.filter((item) => item != creator));
+            if (amount) {
+                setAmount(amount - creator_charges);
+            }
         }
-        console.log(creator);
-        console.log(selectedCreator.includes(creator));
+
     }
 
     const addtoKart = async () => {
@@ -243,7 +251,7 @@ const NewOrder = () => {
                 background: "#282b2f",
                 width: "400px",
                 html: `
-     <p>Please call on <strong><a href="tel:+1234567890" style="color: #007bff; text-decoration: none;">+1234567890</a></strong> to add amount into your wallet.</p>`,
+     <p>To add funds to your wallet, contact us at <strong><a href='tel:+1234567890' style='color: #007bff; text-decoration: none;'>+1234567890</a></strong>.</p>`,
                 allowOutsideClick: false,
                 confirmButtonText: "Ok",
                 customClass: {
@@ -348,7 +356,6 @@ const NewOrder = () => {
             const res = await axios.post("/api/user/analytics/maindata", {
                 user_id: user_id
             });
-            console.log(res.data);
             setMainData(res.data.data)
         } catch (err) {
             console.log(err);
@@ -383,19 +390,15 @@ const NewOrder = () => {
 
 
 
-
     const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setLoading(false)
-    //     }, 700)
-    // }, [])
+
 
     if (loading) {
         return <Loader />
     }
 
+   
     return (
         <div id="main-content">
             <div className="container-fluid">
@@ -450,7 +453,7 @@ const NewOrder = () => {
                             </div>
                         </div>
                     </div>
-                   \
+                
                 </div>
                 {
                     langUI ?
@@ -466,7 +469,7 @@ const NewOrder = () => {
                                                 {
                                                     languageData?.map((ele, ind) =>
                                                         <div key={ind} className='col-md-6'>
-                                                            <label htmlFor={`language_${ind}`} className='language w-100 d-flex px-2 py-1'>
+                                                            <label htmlFor={`language_${ind}`} className='language w-100 d-flex px-2 py-2'>
                                                                 <div className='w-100 my-auto'>
                                                                     <h6 className='mb-0 ml-1'>{ele.language}</h6>
                                                                 </div>
@@ -479,7 +482,7 @@ const NewOrder = () => {
                                             </div>
 
                                             <div className='d-flex justify-content-center'>
-                                                <button className='btn btn-info btn-round px-3 py-1 w-50 my-3' onClick={handleContinue}><p className='mb-0' style={{ fontSize: "18px", fontWeight: "400" }}
+                                                <button className='btn btn-info btn-round px-3 py-2 w-50 my-3' onClick={handleContinue}><p className='mb-0' style={{ fontSize: "18px", fontWeight: "400" }}
 
                                                 >Continue</p></button>
                                             </div>
@@ -566,7 +569,7 @@ const NewOrder = () => {
                                                                                             </div>
                                                                                         </div>
                                                                                         <div className='mr-2 my-auto'>
-                                                                                            <input type="checkbox" id={`influencer_${ind}`} value={ele._id} onChange={handleSelectCreator} checked={selectedCreator.includes(ele._id)} />
+                                                                                            <input type="checkbox" id={`influencer_${ind}`} value={ele._id} onChange={(e) => handleSelectCreator(e, ele.creator_charges)} checked={selectedCreator.includes(ele._id)} />
                                                                                             <div className='influencer-overlay'></div>
                                                                                         </div>
                                                                                     </label>
@@ -587,7 +590,7 @@ const NewOrder = () => {
                                                                 <h6 className='my-2'>Amount</h6>
                                                                 <div className="input-group mb-3">
                                                                     <input type="text" className="form-control" placeholder="Amount" aria-label="Username"
-                                                                        aria-describedby="basic-addon1" defaultValue={amount || 0} style={{ pointerEvents: "none" }} />
+                                                                        aria-describedby="basic-addon1" defaultValue={amount || 0} key={amount} style={{ pointerEvents: "none" }} />
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <button className='btn btn-outline-info btn-round ' onClick={addtoKart} disabled={cartLoading}>{cartLoading ? "Loading..." : "Save & Continue"}</button>
@@ -654,7 +657,7 @@ const NewOrder = () => {
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className='mr-2 my-auto'>
-                                                                                        <input type="checkbox" id={`influencer_${ind}`} value={ele._id} onChange={handleSelectCreator} checked={selectedCreator.includes(ele._id)} />
+                                                                                        <input type="checkbox" id={`influencer_${ind}`} value={ele._id} onChange={(e) => handleSelectCreator(e, ele.creator_charges)} checked={selectedCreator.includes(ele._id)} />
                                                                                         <div className='influencer-overlay'></div>
                                                                                     </div>
                                                                                 </label>
@@ -675,7 +678,7 @@ const NewOrder = () => {
                                                             <h6 className='my-2'>Amount</h6>
                                                             <div className="input-group mb-3">
                                                                 <input type="text" className="form-control" placeholder="Amount" aria-label="Username"
-                                                                    aria-describedby="basic-addon1" defaultValue={amount || 0} style={{ pointerEvents: "none" }} />
+                                                                    aria-describedby="basic-addon1" defaultValue={amount || 0} key={amount} style={{ pointerEvents: "none" }} />
                                                             </div>
                                                             <div className='mt-4'>
                                                                 <button className='btn btn-outline-info btn-round ' onClick={addtoKart} disabled={cartLoading}>{cartLoading ? "Loading..." : "Save & Continue"}</button>
@@ -698,13 +701,16 @@ const NewOrder = () => {
                                                                 </div>
                                                                 <div className="input-group mb-3">
                                                                     <input type="number" min={100} className="form-control" placeholder="number of creator" defaultValue={selectedNumberOfCretor || 0}
-                                                                        onChange={(e) => setSelectedNumberOfCretor(e.target.value)} />
+                                                                        onChange={(e) => {
+                                                                            setSelectedNumberOfCretor(e.target.value)
+                                                                            setAmount(e.target.value * baseAmount);
+                                                                        }} />
                                                                 </div>
 
                                                                 <h6 className='my-2'>Amount</h6>
                                                                 <div className="input-group mb-3">
                                                                     <input type="text" className="form-control" placeholder="Amount" defaultValue={amount || 0}
-                                                                        style={{ pointerEvents: 'none' }} />
+                                                                        key={amount} style={{ pointerEvents: 'none' }} />
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <button className='btn btn-outline-info btn-round ' onClick={addtoKart} disabled={cartLoading}>{cartLoading ? "Loading..." : "Save & Continue"}</button>
@@ -726,12 +732,15 @@ const NewOrder = () => {
                                                                     <span className='mb-0 my-auto' style={{ fontSize: "12px" }}>Min number of creators - {minNoOfCreators}</span>
                                                                 </div>
                                                                 <div className="input-group mb-3">
-                                                                    <input type="number" min={1000} className="form-control" placeholder="number of creator" defaultValue={selectedNumberOfCretor || 0} onChange={(e) => setSelectedNumberOfCretor(e.target.value)} />
+                                                                    <input type="number" min={1000} className="form-control" placeholder="number of creator" defaultValue={selectedNumberOfCretor || 0} onChange={(e) => {
+                                                                        setSelectedNumberOfCretor(e.target.value)
+                                                                        setAmount(e.target.value * baseAmount);
+                                                                        }} />
                                                                 </div>
 
                                                                 <h6 className='my-2'>Amount</h6>
                                                                 <div className="input-group mb-3">
-                                                                    <input type="text" className="form-control" placeholder="Amount" defaultValue={amount || 0} style={{ pointerEvents: "none" }} onChange={() => setSelectedNumberOfCretor(e.target.value)} />
+                                                                    <input type="text" className="form-control" placeholder="Amount" defaultValue={amount || 0} key={amount} style={{ pointerEvents: "none" }}  />
                                                                 </div>
                                                                 <div className='mt-4'>
                                                                     <button className='btn btn-outline-info btn-round ' onClick={addtoKart} disabled={cartLoading}>{cartLoading ? "Loading..." : "Save & Continue"}</button>

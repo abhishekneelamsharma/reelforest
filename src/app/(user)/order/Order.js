@@ -12,9 +12,12 @@ const Order = () => {
     const [active, setActive] = useState(0);
     const session = useSession();
     const user_id = session?.data?.user?.user_id;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getData();
+        if(user_id){
+            getData();
+        }
     }, [user_id])
 
     const getData = async () => {
@@ -22,26 +25,21 @@ const Order = () => {
             const res = await axios.post("/api/order/get_order_by_user", {
                 user_id: user_id
             });
-            console.log(res.data);
             if (res.data.status == 1) {
                 setOrderData(res.data.data);
+                setLoading(false)
             }
         } catch (err) {
             console.log(err);
         }
     }
-
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 700)
-    }, [])
+    
+ 
 
     if (loading) {
         return <Loader />
     }
+
 
     return (
         <div id="main-content">
@@ -75,17 +73,18 @@ const Order = () => {
                                     <th className='text-center'><strong style={{ color: "#17a2b8" }} >Date</strong></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {
-                                    orderData?.map((ele, ind) => {
-                                        if (active == 0) {
-                                            if (ele.completedOrder < ele.total_no_of_creators) {
+                            {
+                                active == 0
+                                    ?
+                                    <tbody>
+                                        {
+                                            orderData?.pendingOrder?.map((ele, ind) => {
                                                 return (
                                                     <tr key={ind}>
                                                         <th className="w60">{ind + 1}</th>
                                                         <td>{ele._id}</td>
-                                                        <td className='text-center'>{ele.total_no_of_creators}</td>
-                                                        <td className='text-center'>{ele.total_amount}</td>
+                                                        <td className='text-center'>{new Intl.NumberFormat('en-IN').format(ele.total_no_of_creators)}</td>
+                                                        <td className='text-center'>{new Intl.NumberFormat('en-IN').format(ele.total_amount)}</td>
                                                         <td className='text-center'>
                                                             <a href={ele.audio_link} target='_blank'>Link</a>
                                                         </td>
@@ -96,31 +95,33 @@ const Order = () => {
                                                     </tr>
                                                 )
                                             }
-                                        } else {
-                                            if (ele.completedOrder >= ele.total_no_of_creators) {
-                                                return (
-                                                    <tr key={ind}>
-                                                        <th className="w60">{ind + 1}</th>
-                                                        <td>{ele._id}</td>
-                                                        <td className='text-center'>{ele.total_no_of_creators}</td>
-                                                        <td className='text-center'>{ele.total_amount}</td>
-                                                        <td className='text-center'>
-                                                            <a href={ele.audio_link} target='_blank'>Link</a>
-                                                        </td>
-                                                        <td className='text-center'><span className=" badge-warning " >
-                                                            {ele.completedOrder}/{ele.total_no_of_creators}</span>
-                                                        </td>
-                                                        <td className='text-center'><DateFomatter time={ele.createdAt || ''} /></td>
-                                                    </tr>
-                                                )
-                                            }
+                                            )
                                         }
-                                    }
-
-                                    )
-                                }
-
-                            </tbody>
+                                    </tbody>
+                                    :
+                                    <tbody>
+                                        {
+                                            orderData?.completedOrder?.map((ele, ind) => {
+                                                return (
+                                                    <tr key={ind}>
+                                                        <th className="w60">{ind + 1}</th>
+                                                        <td>{ele._id}</td>
+                                                        <td className='text-center'>{new Intl.NumberFormat('en-IN').format(ele.total_no_of_creators)}</td>
+                                                        <td className='text-center'>{new Intl.NumberFormat('en-IN').format(ele.total_amount)}</td>
+                                                        <td className='text-center'>
+                                                            <a href={ele.audio_link} target='_blank'>Link</a>
+                                                        </td>
+                                                        <td className='text-center'><span className=" badge-warning " >
+                                                            {ele.completedOrder}/{ele.total_no_of_creators}</span>
+                                                        </td>
+                                                        <td className='text-center'><DateFomatter time={ele.createdAt || ''} /></td>
+                                                    </tr>
+                                                )
+                                            }
+                                            )
+                                        }
+                                    </tbody>
+                            }
                         </table>
                     </div>
 

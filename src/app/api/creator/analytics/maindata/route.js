@@ -5,27 +5,46 @@ import userModel from "@/_model/UserModel";
 import connectDB from "@/utils/connect";
 import { NextResponse } from "next/server"
 
-export const GET = async () => {
+export const POST = async (request) => {
     connectDB();
     try {
-        const totalOrder = await orderModel.find();
-        const completedOrders = await orderModel.find({ order_status: 1 });
+        const { creator_id } = await request.json();
+        const totalOrder = await orderModel.aggregate([
+            {
+                $match: {
+                    "assigned_creator.creator_id": creator_id
+                }
+            },{
+                $count: 'number'
+            }
+        ]);
+        const completedOrders = await orderModel.aggregate([
+            {
+                $match: {
+                    "assigned_creator.creator_id": creator_id
+                }
+            }, {
+                $match: {
+                    "assigned_creator.isVerified": 1
+                }
+            }, {
+                $count: 'number'
+            }
+        ]);
         const totalUser = await userModel.find()
         const totalCreator = await creatorModel.find()
-        const totalCategory = await categoryModel.find();
         const topCreator = await creatorModel.find().sort({ creator_charges: -1 }).limit(5)
 
-        
+
 
         return NextResponse.json({
             message: "Get Data Successfully...", data: {
                 creatorData: topCreator,
                 totalUser: totalUser.length,
                 totalCreator: totalCreator.length,
-                totalOrder: totalOrder.length,
-                completedOrders: completedOrders.length,
-                processOrder: totalOrder.length - completedOrders.length,
-                totalCategory: totalCategory.length
+                totalOrder: totalOrder[0].number,
+                completedOrders: completedOrders[0].number,
+                processOrder: totalOrder[0].number - completedOrders[0].number,
             },
 
             status: 1

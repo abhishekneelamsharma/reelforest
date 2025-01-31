@@ -3,16 +3,16 @@
 import axios from 'axios'
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
+import { CreatorContext } from '@/_context/CreatorContext';
 
 
-const Sidebar = (
-    // {toggle,setToggle}
-) => {
-    // const handleToggle = () => {
-    //     setToggle(false)
-    // }
+const Sidebar = () => {
+    const { toggle, setToggle } = useContext(CreatorContext);
+    const handleToggle = () => {
+        setToggle(false)
+    }
 
     const [data, setData] = useState();
     const session = useSession();
@@ -24,7 +24,6 @@ const Sidebar = (
             const res = await axios.post("/api/creator/get_creator_basic_info", {
                 creator_id: user_id
             })
-            console.log(res.data);
             setData(res.data.data);
         } catch (err) {
             console.log(err);
@@ -42,31 +41,31 @@ const Sidebar = (
         router.replace("/creator/login")
     }
 
-
     return (
-        <div id="left-sidebar" className="sidebar">
-            <div className="navbar-brand">
-                <Link href="/creator"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
-                    alt="Oculux Logo" className="img-fluid logo" /><span>Reel Forest</span></Link>
-                <button type="button" className="btn-toggle-offcanvas btn btn-sm float-right"
-                // onClick={handleToggle}
-                ><i
-                    className="lnr lnr-menu icon-close" ></i></button>
-            </div>
-            <div className="sidebar-scroll">
-                <div className="user-account f-flex align-items-center">
-                    <div className="user_div " >
-                        <img src={`/uploads/${data?.profile_image}`} className="user-photo" alt="User Profile Picture" style={{ borderRadius: "50%", objectFit: "cover" }} height={"40px"} />
-                    </div>
-                    <div className="dropdown">
-                        <span>@{data?.username}</span>
-                        <span className="user-name"
-                            style={{ fontSize: "13px" }}><strong>{data?.fullname}</strong></span>
-                    </div>
+        <div className={`theme-cyan font-montserrat ${toggle ? "offcanvas-active" : ""}`}>
+            <div id="left-sidebar" className="sidebar">
+                <div className="navbar-brand">
+                    <Link href="/creator"><img src="https://puffintheme.com/template/oculux/assets/images/icon.svg"
+                        alt="Oculux Logo" className="img-fluid logo" /><span>Reel Troop</span></Link>
+                    <button type="button" className="btn-toggle-offcanvas btn btn-sm float-right"
+                        onClick={handleToggle}
+                    ><i
+                        className="lnr lnr-menu icon-close" ></i></button>
                 </div>
-                <nav id="left-sidebar-nav" className="sidebar-nav">
-                    <ul id="main-menu" className="metismenu">
-                        {/* <li className="header">Main</li>
+                <div className="sidebar-scroll">
+                    <div className="user-account f-flex align-items-center">
+                        <div className="user_div " >
+                            <img src={`/uploads/${data?.profile_image}`} className="user-photo" alt="User Profile Picture" style={{ borderRadius: "50%", objectFit: "cover" }} height={"40px"} />
+                        </div>
+                        <div className="dropdown">
+                            <span>@{data?.username}</span>
+                            <span className="user-name"
+                                style={{ fontSize: "12px" }}><strong>{data?.fullname}</strong></span>
+                        </div>
+                    </div>
+                    <nav id="left-sidebar-nav" className="sidebar-nav">
+                        <ul id="main-menu" className="metismenu">
+                            {/* <li className="header">Main</li>
                         <li className="active open">
                             <a href="#myPage" className="has-arrow"><i className="icon-home"></i><span>My Page</span></a>
                             <ul>
@@ -82,20 +81,21 @@ const Sidebar = (
                                 <li><a href="index11.html">eCommerce Analytics</a></li>
                             </ul>
                         </li> */}
-                        <li><Link href="/creator"><i className="icon-speedometer" ></i><span>Dashboard</span></Link></li>
-                        {/* <li><Link href="/creator/new-order"><i className="icon-bag" ></i><span>New Order</span></Link></li> */}
-                        <li><Link href="/creator/order"><i
-                            className="icon-bag"></i><span>Order</span></Link></li>
-                        {/* <li><Link href="/creator/wallet"><i
+                            <li><Link href="/creator" onClick={handleToggle}><i className="icon-speedometer" ></i><span>Dashboard</span></Link></li>
+                            {/* <li><Link href="/creator/new-order"><i className="icon-bag" ></i><span>New Order</span></Link></li> */}
+                            <li><Link href="/creator/order" onClick={handleToggle}><i
+                                className="icon-bag"></i><span>Order</span></Link></li>
+                            {/* <li><Link href="/creator/wallet"><i
                             className="icon-wallet"></i><span>Wallet</span></Link></li> */}
-                        <li>
-                            <Link href="/" className='d-flex justify-content-center my-4' onClick={handleSignout}>
-                                <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="fa-solid fa-right-from-bracket " style={{ marginRight: 0 }}></i></span>
-                            </Link>
-                        </li>
+                            <li>
+                                <Link href="/" className='d-flex justify-content-center my-4 logout' onClick={handleSignout}>
+                                    <span className='btn btn-info btn-round d-flex justify-content-center align-items-center'>Logout <i className="fa-solid fa-right-from-bracket " style={{ marginRight: 0 }}></i></span>
+                                </Link>
+                            </li>
 
-                    </ul>
-                </nav>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     )
